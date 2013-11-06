@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
@@ -26,12 +27,16 @@ import com.google.zxing.Result;
 
 public class CaptureActivity extends Activity implements Callback {
 
+    /**
+     * Return the barcode of pattern when back from this scaner.
+     */
+    public static final String EXTRA_CODE = "extra_code";
+
 	private CaptureActivityHandler handler;
 	private ViewfinderView viewfinderView;
 	private boolean hasSurface;
 	private Vector<BarcodeFormat> decodeFormats;
 	private String characterSet;
-	private TextView txtResult;
 	private InactivityTimer inactivityTimer;
 	private MediaPlayer mediaPlayer;
 	private boolean playBeep;
@@ -43,11 +48,9 @@ public class CaptureActivity extends Activity implements Callback {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		//��ʼ�� CameraManager
 		CameraManager.init(getApplication());
 
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
-		txtResult = (TextView) findViewById(R.id.txtResult);
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
 	}
@@ -141,10 +144,11 @@ public class CaptureActivity extends Activity implements Callback {
 
 	public void handleDecode(Result obj, Bitmap barcode) {
 		inactivityTimer.onActivity();
-		viewfinderView.drawResultBitmap(barcode);
-		 playBeepSoundAndVibrate();
-		txtResult.setText(obj.getBarcodeFormat().toString() + ":"
-				+ obj.getText());
+		playBeepSoundAndVibrate();
+		Intent data = new Intent();
+		data.putExtra(EXTRA_CODE, obj.getText());
+		setResult(RESULT_OK, data);
+		finish();
 	}
 
 	private void initBeepSound() {
