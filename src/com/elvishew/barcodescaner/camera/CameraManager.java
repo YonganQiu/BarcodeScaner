@@ -44,8 +44,8 @@ public final class CameraManager {
 
   private static final int MIN_FRAME_WIDTH = 240;
   private static final int MIN_FRAME_HEIGHT = 240;
-  private static final int MAX_FRAME_WIDTH = 480;
-  private static final int MAX_FRAME_HEIGHT = 360;
+  private static final int MAX_FRAME_WIDTH = 800;//QYA 480;
+  private static final int MAX_FRAME_HEIGHT = 600;//QYA 360;
 
   private static CameraManager cameraManager;
 
@@ -138,7 +138,7 @@ public final class CameraManager {
 //      if (prefs.getBoolean(PreferencesActivity.KEY_FRONT_LIGHT, false)) {
 //        FlashlightManager.enableFlashlight();
 //      }
-      FlashlightManager.enableFlashlight();
+      //FlashlightManager.enableFlashlight();
     }
   }
 

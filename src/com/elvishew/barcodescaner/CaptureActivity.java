@@ -16,7 +16,6 @@ import android.os.Vibrator;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
-import android.widget.TextView;
 
 import com.elvishew.barcodescaner.camera.CameraManager;
 import com.elvishew.barcodescaner.decoding.CaptureActivityHandler;
